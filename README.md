@@ -1,4 +1,4 @@
-# InspireInk What
+# InspireInk
 
 A modern writing prompt generator and journaling app built with React Native and Expo.
 

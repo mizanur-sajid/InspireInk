@@ -201,7 +201,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <Text style={[styles.copyright, { color: colors.text.secondary }]}>
-              © {new Date().getFullYear()} InspireInk • Made by Mizan X Mainul X Labonno
+              © {new Date().getFullYear()} InspireInk - Made by Mizan • Mainul • Labonno
             </Text>
           </View>
         </>

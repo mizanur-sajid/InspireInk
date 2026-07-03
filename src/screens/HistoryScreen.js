@@ -112,7 +112,7 @@ export default function HistoryScreen({ navigation }) {
 
   return (
     <ScrollView
-      style={[styles.container, { paddingTop: insets.top }]}
+      style={[styles.container, { backgroundColor: colors.background, paddingTop: insets.top }]}
       contentContainerStyle={styles.contentContainer}
     >
       <SearchBar

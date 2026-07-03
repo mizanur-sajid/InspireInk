@@ -7,6 +7,7 @@ import {
   Text,
   FlatList,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { 
   getRandomPrompt, 
@@ -23,7 +24,7 @@ import { getRandomQuote } from '../utils/quotes';
 
 export default function HomeScreen({ navigation }) {
   const insets = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors, isDark, toggleTheme } = useTheme();
   const [currentPrompt, setCurrentPrompt] = useState(getRandomPrompt());
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -97,16 +98,37 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ScrollView
-      style={[styles.container, { paddingTop: insets.top + spacing.lg }]}
+      style={[
+        styles.container, 
+        { 
+          paddingTop: insets.top,
+          backgroundColor: colors.background 
+        }
+      ]}
       contentContainerStyle={styles.contentContainer}
     >
       <Card style={styles.quoteCard}>
-        <Text style={[styles.quoteText, { color: colors.text.primary }]}>
-          "{quote.quote}"
-        </Text>
-        <Text style={[styles.quoteAuthor, { color: colors.text.secondary }]}>
-          — {quote.author}
-        </Text>
+        <View style={styles.quoteCardContent}>
+          <TouchableOpacity 
+            onPress={toggleTheme} 
+            style={[styles.themeToggle, { backgroundColor: colors.background }]}
+            activeOpacity={0.7}
+          >
+            <Ionicons 
+              name={isDark ? 'sunny' : 'moon'} 
+              size={22} 
+              color={isDark ? '#ffd166' : '#4361ee'} 
+            />
+          </TouchableOpacity>
+          <View style={styles.quoteTextContainer}>
+            <Text style={[styles.quoteText, { color: colors.text.primary }]}>
+              "{quote.quote}"
+            </Text>
+            <Text style={[styles.quoteAuthor, { color: colors.text.secondary }]}>
+              — {quote.author}
+            </Text>
+          </View>
+        </View>
       </Card>
 
       <View style={styles.titleContainer}>
@@ -217,6 +239,23 @@ const styles = StyleSheet.create({
   contentContainer: {
     padding: spacing.lg,
     gap: spacing.lg,
+  },
+  quoteCardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quoteTextContainer: {
+    flex: 1,
+    marginLeft: spacing.md,
+  },
+  themeToggle: {
+    padding: spacing.sm,
+    borderRadius: borderRadius.round,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   quoteCard: {
     padding: spacing.md,
